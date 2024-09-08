@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+</head>
+<body>
+<center>
+    <h1>Vote for Your Favorite Candidate</h1>
+    <ul>
+        {% for candidate in candidates %}
+            
+                {{ candidate.name }}
+                <form action="{% url 'vote' candidate.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Vote</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No candidates available!</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'results' %}">View Results</a>
+</center>
+</body>
+</html>
