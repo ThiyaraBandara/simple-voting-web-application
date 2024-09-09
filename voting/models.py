@@ -1,7 +1,7 @@
+# voting/models.py
+
 from django.db import models
-
-# Create your models here.
-
+from django.contrib.auth.models import User
 
 class Candidate(models.Model):
     name = models.CharField(max_length=100)
@@ -15,3 +15,11 @@ class Vote(models.Model):
 
     def __str__(self):
         return f'Vote for {self.candidate.name}'
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profiles/', blank=True)
+
+    def __str__(self):
+        return f'Profile of {self.user.username}'

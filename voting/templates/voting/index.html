@@ -71,10 +71,22 @@
             text-decoration: none;
             transition: color 0.3s;
         }
+        .profile-link{
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
 
         .results-link:hover {
             color: #0056b3;
         }
+        .results-link:hover {
+            color: #0056b3;
+        } 
+
     </style>
 </head>
 <body>
@@ -95,6 +107,8 @@
                 {% endfor %}
             </ul>
             <a href="{% url 'results' %}" class="results-link">View Results</a>
+            <a href="{% url 'profile' %}" class="profile-link">View Profile</a>
+
         </center>
     </div>
 </body>
