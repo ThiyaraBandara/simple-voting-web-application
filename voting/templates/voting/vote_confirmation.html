@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Confirmation</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">  <!-- Link to your CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Thank You for Voting!</h1>
+        <p>You have voted for <strong>{{ candidate.name }}</strong>.</p>
+        <a href="{% url 'results' %}" class="results-link">View Results</a>
+        <a href="{% url 'index' %}" class="back-link">Back to Voting</a>
+    </div>
+</body>
+</html>

@@ -9,7 +9,11 @@ def vote(request, candidate_id):
     if request.method == 'POST':
         candidate = get_object_or_404(Candidate, id=candidate_id)
         Vote.objects.create(candidate=candidate)
-        return redirect('results')  # Redirect to results page after voting
+        return redirect('vote_confirmation', candidate_id=candidate.id)  # Redirect to confirmation page
+
+def vote_confirmation(request, candidate_id):
+    candidate = get_object_or_404(Candidate, id=candidate_id)
+    return render(request, 'voting/vote_confirmation.html', {'candidate': candidate})
 
 def results(request):
     candidates = Candidate.objects.all()
