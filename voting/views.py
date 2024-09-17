@@ -2,26 +2,25 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm 
 from .models import Candidate, Vote,UserProfile
-from .forms import UserSignupForm,UserProfileForm
+from .forms import SignupForm,UserProfileForm
 
 def index(request):
     candidates = Candidate.objects.all()
     return render(request, 'voting/index.html', {'candidates': candidates})
 def signup(request):
     if request.method == 'POST':
-        form = UserSignupForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
+            user.set_password(form.cleaned_data['password1'])
             user.save()
             login(request, user)  # Log the user in after signup
             return redirect('index')  # Redirect to the index after signup
     else:
-        form = UserSignupForm()
+        form = SignupForm()
     return render(request, 'voting/signup.html', {'form': form})
 
 def user_login(request):
@@ -53,6 +52,7 @@ def results(request):
     votes = {candidate: Vote.objects.filter(candidate=candidate).count() for candidate in candidates}
     return render(request, 'voting/results.html', {'votes': votes})
 
+
 @login_required
 def profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
@@ -63,10 +63,16 @@ def profile(request):
             form.save()
             return redirect('profile')  # Redirect to the same page after saving
     else:
-        form = UserProfileForm(instance=user_profile)
+        form = UserProfileForm(instance=UserProfile)
 
-    return render(request, 'voting/profile.html', {'form': form, 'user_profile': user_profile})
+    return render(request, 'voting/profile.html', {'form': form, 'UserProfile': UserProfile})
+
+
+def privacy_policy(request):
+    return render(request, 'voting/privacy_policy.html')
 
 
 
+def about_us(request):
+    return render(request, 'voting/about_us.html')
 

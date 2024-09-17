@@ -51,6 +51,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom User Model
+AUTH_USER_MODEL = 'voting.CustomUser'
+
+LOGIN_URL = '/profile/'  # Specify your login page
+
 
 # Application definition
 

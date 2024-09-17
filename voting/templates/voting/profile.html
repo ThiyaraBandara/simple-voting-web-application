@@ -46,6 +46,12 @@
     .back-link:hover {
         text-decoration: underline;
     }
+    .profile-info {
+        margin-top: 20px;
+        padding: 10px;
+        background: #f9f9f9;
+        border-radius: 5px;
+    }
 </style>
 
 <div class="container">
@@ -59,12 +65,20 @@
 
     <div class="profile-picture">
         <h3>Current Profile Picture:</h3>
-        {% if user_profile.profile_picture %}
-            <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
+        {% if UserProfile.profile_picture %}
+            <img src="{{ UserProfile.profile_picture.url }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
         {% else %}
             <p>No profile picture uploaded.</p>
         {% endif %}
     </div>
+
+    <div class="profile-info">
+        <h3>User Information:</h3>
+        <p><strong>Date of Birth:</strong> {% if UserProfile.date_of_birth %}{{ UserProfile.date_of_birth|date:"Y-m-d" }}{% else %}Not provided{% endif %}</p>
+        <p><strong>Phone Number:</strong> {% if UserProfile.phone_number %}{{ UserProfile.phone_number }}{% else %}Not provided{% endif %}</p>
+        <p><strong>Address:</strong> {% if UseRProfile.address %}{{ UserProfile.address }}{% else %}Not provided{% endif %}</p>
+    </div>
+
     <a href="{% url 'index' %}" class="back-link">Back to Voting</a>
 </div>
 {% endblock %}
